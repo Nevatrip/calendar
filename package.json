@@ -1,0 +1,12 @@
+{
+  "author": "kizoso @kizoso",
+  "name": "kendo_ui_calendar",
+  "version": "1.0.0",
+  "dependencies": {
+
+  },
+  "scripts": {
+    "dev": "lite-server"
+  },
+  "private": true
+}

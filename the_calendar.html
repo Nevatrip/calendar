@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>Календарь</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+  <link href="styles/kendo.common.min.css" rel="stylesheet">
+  <link href="styles/kendo.rtl.min.css" rel="stylesheet">
+  <link href="styles/kendo.default.min.css" rel="stylesheet">
+  <link href="styles/kendo.default.mobile.min.css" rel="stylesheet">
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jszip.min.js"></script>
+  <script src="js/kendo.all.min.js"></script>
+  <script src="js/kendo.timezones.min.js"></script>
+  <script src="js/cultures/kendo.culture.ru-RU.min.js"></script>
+  <script src="js/messages/kendo.messages.ru-RU.min.js"></script>
+
+  <script>
+    $(function () {
+      $("#scheduler").kendoScheduler({
+        date: new Date("2018/6/15 12:00 AM"),
+        startTime: new Date("2018/6/15 11:59 PM"),
+        height: 900,
+        views: [
+          "day",
+          "week",
+          { type: "month", selected: true },
+          "agenda"
+        ],
+        timezone: "Europe/Moscow",
+        resources: [
+          {
+            field: "eventId",
+            title: "event",
+            dataSource: [
+              {text: "meteor", value: 1, color: "#f8a398"},
+              {text: "palmira", value: 2, color: "#51a0ed"},
+              {text: "koryshka", value: 3, color: "#56ca85"}
+            ]
+          }
+        ],
+        dataSource: [
+          {
+            id: 1,
+            eventId: 1,
+            isAllDay: true,
+            title: "Метеор в Петергоф",
+            provider: 'Astra Marin',
+            start: new Date("2018/6/14 12:00 AM"),
+            end: new Date("2018/6/14 11:59 PM"),
+            actionStartTime: '02:00 PM',
+            actionStopTime: '04:00 PM'
+
+          },
+          {
+            id: 2,
+            eventId: 1,
+            isAllDay: true,
+            title: "Метеор в Петергоф",
+            provider: 'Astra Marin',
+            start: new Date("2018/6/16 12:00 AM"),
+            end: new Date("2018/6/16 11:59 PM"),
+
+          },
+          {
+            id: 3,
+            eventId: 2,
+            start: new Date("2018/6/8 6:00 PM"),
+            end: new Date("2018/6/8 8:00 PM"),
+            title: "Прогулка на Пальмире",
+            isAllDay: true
+          },
+          {
+            id: 4,
+            eventId: 2,
+            start: new Date("2018/6/20 6:00 PM"),
+            end: new Date("2018/6/20 8:00 PM"),
+            title: "Прогулка на Пальмире",
+            isAllDay: true
+          },
+          {
+            id: 5,
+            eventId: 3,
+            start: new Date("2018/6/5 6:00 PM"),
+            end: new Date("2018/6/5 8:00 PM"),
+            title: "Ужин на корюшке",
+            isAllDay: true
+          },
+          {
+            id: 6,
+            eventId: 3,
+            start: new Date("2018/6/22 6:00 PM"),
+            end: new Date("2018/6/22 8:00 PM"),
+            title: "Ужин на корюшке",
+            isAllDay: true
+          }
+        ],
+        eventTemplate: $("#event-template").html(),
+        editable: {
+          template: $("#customEditorTemplate").html(),
+        },
+
+      });
+
+      $("#ships :checkbox").change(function (e) {
+        var checked = $.map($("#ships :checked"), function (checkbox) {
+          return parseInt($(checkbox).val());
+        });
+
+        var scheduler = $("#scheduler").data("kendoScheduler");
+
+        scheduler.dataSource.filter({
+          operator: function (task) {
+            return $.inArray(task.eventId, checked) >= 0;
+          }
+        });
+      });
+
+      $(document).on("click","#btnAddTicket", function(e){
+        $('#ticketsTable').append(
+          '<tr>\n' +
+          '   <td>\n' +
+          '     <select class="k-textbox k-input" required="required">\n' +
+          '       <option disabled selected value> -- тип -- </option>\n' +
+          '       <option>Взрослый</option>\n' +
+          '       <option>Льготный</option>\n' +
+          '       <option>Детский</option>\n' +
+          '     </select>\n' +
+          '   </td>\n' +
+          '   <td>\n' +
+          '     <input type="text" class="k-textbox k-input" value="" required="required">\n' +
+          '   </td>\n' +
+          '   <td>\n' +
+          '     <textarea class="k-textbox" required="required"></textarea>\n' +
+          '   </td>\n' +
+          '   <td>\n' +
+          '     <input type="text" class="k-textbox k-input" value="" required="required">\n' +
+          '   </td>\n' +
+          '   <td>\n' +
+          '     <select class="k-textbox k-input" required="required">\n' +
+          '       <option disabled selected value> -- категория -- </option>\n' +
+          '       <option>Стандарт</option>\n' +
+          '       <option>Эконом</option>\n' +
+          '       <option>Вип</option>\n' +
+          '       <option>Вип-5</option>\n' +
+          '    </select>\n' +
+          '  </td>\n' +
+          '  <td>-</td>\n' +
+          '  <td>-</td>\n' +
+          '  <td><input type="text" class="k-textbox k-input" value="" required="required"></td>\n' +
+          '</tr>'
+        )
+      });
+
+      $(document).on("click","#btnAddService", function(e){
+        $('#ticketsService').append(
+          '<tr>\n' +
+          '  <td>\n' +
+          '    <select class="k-textbox k-input" required="required">\n' +
+          '      <option disabled selected value> -- товар -- </option>\n' +
+          '      <option>Зонт</option>\n' +
+          '      <option>Дождевик</option>\n' +
+          '      <option>Дождевик детский</option>\n' +
+          '      <option>Букет цветов</option>\n' +
+          '    </select>\n' +
+          '  </td>\n' +
+          '  <td>\n' +
+          '    <input type="text" class="k-textbox k-input" value="" required="required">\n' +
+          '  </td>\n' +
+          '  <td>\n' +
+          '    <textarea class="k-textbox" required="required"></textarea>\n' +
+          '  </td>\n' +
+          '  <td>\n' +
+          '    <input type="text" class="k-textbox k-input" value="" required="required">\n' +
+          '  </td>\n' +
+          '  <td>-</td>\n' +
+          '  <td>-</td>\n' +
+          '  <td><input type="text" class="k-textbox k-input" value="" required="required"></td>\n' +
+          '</tr>'
+        )
+      });
+
+    });
+
+
+  </script>
+
+  <style>
+    html, body{
+      position: relative;
+      font-family: Arial, sans-serif;
+    }
+    .container-modal{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%
+    }
+    .container-fields{
+      position: relative;
+      flex: 1;
+      column-count: 2;
+    }
+    .container-fields:before,
+    .container-fields:after{
+      content: '';
+      display: table;
+    }
+    .container-fields:after{
+      clear: both;
+    }
+    .outer{
+      position: relative;
+      
+    }
+    .outer:before,
+    .outer:after{
+      content: '';
+      display: table;
+    }
+    .outer:after{
+      clear: both;
+    }
+    .k-scheduler-edit-form .k-edit-form-container, .k-scheduler-timezones .k-edit-form-container{
+      width: 900px;
+    }
+    .k-scheduler-edit-form .k-edit-field {
+      width: 50%;
+    }
+    .k-scheduler-edit-form .k-edit-label {
+      width: 44%;
+    }
+    .k-textbox,
+    .k-widget.k-header{
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+    }
+    .k-window-title{
+      text-align: center;
+    }
+    .k-caption{
+      font-size: 1.2em;
+      padding: 5px 0px 10px;
+    }
+    .container-tables {
+      padding: 0 16px;
+    }
+    .table{
+      width: 100%;
+      table-layout: auto;
+      border-collapse: collapse;
+      margin: 1px auto 16px;
+    }
+    .table td,
+    .table th{
+      border: 1px solid #eee;
+      padding: .5rem;
+      text-align: center;
+    }
+    .k-invalid{
+      border-color: red!important;
+    }
+  </style>
+</head>
+<body>
+
+
+<div id="shipsSchedule">
+  <div id="ships">
+    <input checked type="checkbox" id="meteor" aria-label="meteor" value="1"><label for="meteor">Метеор в Петергоф</label>
+    <input checked type="checkbox" id="palmira" aria-label="palmira" value="2"><label for="palmira">Прогулка на Пальмире</label>
+    <input checked type="checkbox" id="koryshka" aria-label="koryshka" value="3"><label for="koryshka">Ужин на корюшке</label>
+  </div>
+</div>
+<br>
+<div id="scheduler"></div>
+
+
+<script id="customEditorTemplate" type="text/x-kendo-template">
+
+  <div class="container-modal">
+    <div class="container-fields">
+      <div class="outer">
+        <div class="k-edit-label"><label for="title">Направление</label></div>
+        <div class="k-edit-field" data-container-for="title">
+          <input class="k-textbox k-input" name="title" data-bind="value:title" required="required" placeholder="СПБ - Петергоф"/>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="provider">API</label></div>
+        <div class="k-edit-field" data-container-for="provider">
+          <select data-role="dropdownlist" name="provider" data-bind="value:provider" required="required" >
+            <option value="no provider">Нет</option>
+            <option value="Astra Marin">Astra Marin</option>
+            <option value="Neva Travel">Neva Travel</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="start">Начало экскурсии</label></div>
+        <div class="k-edit-field" data-container-for="start">
+          <input type="text"
+                 data-role="datetimepicker"
+                 data-interval="10"
+                 data-type="date"
+                 data-bind="value:start"
+                 name="start"/>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="end">Окончание экскурсии</label></div>
+        <div class="k-edit-field" data-container-for="end">
+          <input type="text"
+                 data-role="datetimepicker"
+                 data-interval="10"
+                 data-type="date"
+                 data-bind="value:end"
+                 name="end"/>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="actionStartTime">Время отправления</label></div>
+        <div class="k-edit-field" data-container-for="actionStartTime">
+          <input type="text"
+                 data-role="timepicker"
+                 data-interval="10"
+                 data-type="time"
+                 data-bind="value:actionStartTime"
+                 name="actionStartTime"/>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="actionStopTime">Время прибытия</label></div>
+        <div class="k-edit-field" data-container-for="actionStopTime">
+          <input type="text"
+                 data-role="timepicker"
+                 data-interval="10"
+                 data-type="time"
+                 data-bind="value:actionStopTime"
+                 name="actionStopTime"/>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="eventDays">Дни недели</label></div>
+        <div class="k-edit-field" data-container-for="eventDays">
+          ???
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="eventRepeat">Повторять</label></div>
+        <div class="k-edit-field" data-container-for="eventRepeat">
+          <select data-role="dropdownlist">
+            <option>Никогда</option>
+            <option>Ежедневно до конца сезона</option>
+            <option>Каждую неделю до конца сезона</option>
+            <option>Каждый месяц до конца сезона</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="stopBefore">Прекратить продажу за (мин.)</label></div>
+        <div data-container-for="stopBefore" class="k-edit-field">
+          <input type="text"
+                 data-bind="value:stopBefore"
+                 class="k-input k-textbox"
+                 name="stopBefore"/>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="pier">Причал отправления:</label></div>
+        <div data-container-for="pier" class="k-edit-field">
+          <select data-role="dropdownlist">
+            <option selected>Из API</option>
+            <option>Набережная Фонтанки</option>
+            <option>Дворцовая набережная</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="tripMap">Карта маршрута</label></div>
+        <div data-container-for="tripMap" class="k-edit-field">
+          <input type="text" class="k-input k-textbox" name="tripMap" data-bind="value:tripMap">
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="placeId">Транспортное средство</label></div>
+        <div data-container-for="placeId" class="k-edit-field">
+          <select data-role="dropdownlist" name="placeId" data-bind="value:placeId">
+            <option>Из API</option>
+            <option>Метеор</option>
+            <option>Москва</option>
+            <option>Пальмира</option>
+            <option>Корюшка</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="onPlaceItem">На борту</label></div>
+        <div data-container-for="onPlaceItem" class="k-edit-field">
+          <select data-bind="value:onPlaceItem"
+                  data-role="multiselect"
+                  multiple="multiple"
+                  data-value-field="value"
+                  data-text-field="text">
+            <option>Чайник</option>
+            <option>Зонтик</option>
+            <option>Дождевик</option>
+            <option>Экскурсия</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="langArray">Язык экскурсии</label></div>
+        <div data-container-for="langArray" class="k-edit-field">
+          <select data-bind="value:langArray"
+                  data-role="multiselect" multiple="multiple" data-value-field="value" data-text-field="text">
+            <option>русский</option>
+            <option>английский</option>
+            <option>китайский</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="sightArray">Достопримечательности</label></div>
+        <div data-container-for="sightArray" class="k-edit-field">
+          <select data-bind="value:sightArray"
+                  data-role="multiselect"
+                  multiple="multiple"
+                  data-value-field="value"
+                  data-text-field="text">
+            <option>Петропавловская крепость</option>
+            <option>Эрмитаж</option>
+            <option>Дворцовая площадь</option>
+            <option>Медный всадник</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="tagArray">Теги</label></div>
+        <div data-container-for="tagArray" class="k-edit-field">
+          <select data-bind="value:tagArray"
+                  data-role="multiselect" multiple="multiple" data-value-field="value" data-text-field="text">
+            <option>длинная экскурсия</option>
+            <option>для двоих</option>
+            <option>дневная экскурсия</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="eventAdviceBuy">Совет при покупке</label></div>
+        <div data-container-for="eventAdviceBuy" class="k-edit-field">
+          <textarea name="eventAdviceBuy" class="k-textbox" data-bind="value:eventAdviceBuy" placeholder="Обратите внимание, что после полуночи наступает следующий календарный день">
+
+          </textarea>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="eventAdviceTicket">Совет в билете</label></div>
+        <div data-container-for="eventAdviceTicket" class="k-edit-field">
+          <textarea name="eventAdviceTicket" class="k-textbox" data-bind="value:eventAdviceTicket" placeholder="Захватите теплую шапку!">
+
+          </textarea>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="eventDescription">Описание</label></div>
+        <div data-container-for="eventDescription" class="k-edit-field">
+          <textarea name="eventDescription" class="k-textbox" data-bind="value:eventDescription" placeholder="Крутая популярная экскурсия, не слишком длинная, очень интересная.">
+
+          </textarea>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="ticketPrint">Печать билета</label></div>
+        <div data-container-for="ticketPrint" class="k-edit-field">
+          <select data-bind="value:ticketPrint"
+                  data-role="dropdownlist" data-value-field="value" data-text-field="text">
+            <option>не требуется</option>
+            <option>обязательна</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="outer">
+        <div class="k-edit-label"><label for="seatsCount">Количество билетов</label>
+        </div>
+        <div data-container-for="seatsCount" class="k-edit-field">
+          <input type="text" name="seatsCount" class="k-input k-textbox" data-bind="value:seatsCount"
+                 placeholder="???">
+        </div>
+      </div>
+
+    </div>
+    <div class="container-tables">
+      <hr>
+      <div id="grid-ticket">
+        <h3 class="k-caption">Билеты:</h3>
+        <table id="ticketsTable" class="table">
+          <tr>
+            <th>Тип</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Цена</th>
+            <th>Категория</th>
+            <th>Осталось</th>
+            <th>Куплено</th>
+            <th>Всего</th>
+          </tr>
+        </table>
+        <button id="btnAddTicket" class="k-button">Добавить билет</button>
+      </div>
+      <hr>
+      <h3 class="k-caption">Доп. услуги</h3>
+      <div id="grid-additional">
+        <table class="table" id="ticketsService">
+          <tbody>
+          <tr>
+            <th>Товар</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Цена</th>
+            <th>Осталось</th>
+            <th>Куплено</th>
+            <th>Всего</th>
+          </tr>
+          </tbody>
+        </table>
+        <button id="btnAddService" class="k-button">Добавить услугу</button>
+      </div>
+    </div>
+  </div>
+
+</script>
+
+<script id="event-template" type="text/x-kendo-template">
+  <div class="trip-template">
+    #: title #
+  </div>
+</script>
+
+
+</body>
+</html>
