@@ -1,0 +1,92 @@
+html, body{
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+.container-modal{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%
+}
+.container-fields{
+  position: relative;
+  flex: 1;
+  column-count: 2;
+}
+.container-fields:before,
+.container-fields:after{
+  content: '';
+  display: table;
+}
+.container-fields:after{
+  clear: both;
+}
+.outer{
+  position: relative;
+  
+}
+.outer:before,
+.outer:after{
+  content: '';
+  display: table;
+}
+.outer:after{
+  clear: both;
+}
+.k-scheduler-edit-form .k-edit-form-container, .k-scheduler-timezones .k-edit-form-container{
+  width: 900px;
+}
+.k-scheduler-edit-form .k-edit-field {
+  width: 50%;
+}
+.k-scheduler-edit-form .k-edit-label {
+  width: 44%;
+}
+.k-textbox,
+.k-widget.k-header{
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+}
+.k-window-title{
+  text-align: center;
+}
+.k-caption{
+  font-size: 1.2em;
+  padding: 5px 0px 10px;
+}
+.container-tables {
+  padding: 0 16px;
+}
+.table{
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  margin: 1px auto 16px;
+}
+.table td,
+.table th{
+  border: 1px solid #eee;
+  padding: .5rem;
+  text-align: center;
+}
+.k-invalid{
+  border-color: red!important;
+}
+.trip-template {
+  font-size: 11px;
+}
+.trip-template__time{
+  display: block;
+  font-weight: bold;
+}
+.trip-template__title{
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.k-invalid-msg{
+  display: block !important;
+}

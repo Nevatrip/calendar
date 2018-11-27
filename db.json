@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "langArray": [ "ru" ],
+
+      "name": "Первая экскурсия",
+      "start": "15.11.2018",
+      "description": "Описание экскурсии",
+      "ticketType": 3,
+      "pierStartId": 2,
+      "pierFinishId": 1,
+      "mapUrl": "https://maps.yandex.ru/23784659356",
+      "tripDirection": "Москва — Петушки",
+      "vehicleId": 1,
+      "vehicleFeaturesArray": [ 2 ],
+      "sightArray": [ 1 ],
+      "tipBuy": "Купите этот билет",
+      "tipTicket": "Распечатайте этот билет",
+      "buyTime": null,
+      "tagArray": [ 2, 3 ],
+      "ticketPrint": true,
+      "count": 100
+    }
+  ]
+}
