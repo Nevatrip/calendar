@@ -23,7 +23,9 @@ html, body{
 }
 .outer{
   position: relative;
-  
+  columns: 1;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 .outer:before,
 .outer:after{
@@ -73,6 +75,16 @@ html, body{
 .k-invalid{
   border-color: red!important;
 }
+.k-error{
+  display: inline-block;
+  color: red;
+  font-style: italic;
+  font-size: .8em;
+  line-height: 0.9;
+  vertical-align: bottom;
+  max-width: 100%;
+  margin-top: 2px;
+}
 .trip-template {
   font-size: 11px;
 }
@@ -89,4 +101,22 @@ html, body{
 }
 .k-invalid-msg{
   display: block !important;
+}
+.langField_en{
+  background-color: #dbe3f5;
+}
+.langField_zh{
+  background-color: #fffc97;
+}
+.langField{
+  position: relative;
+  padding-top: 7px;
+}
+.langField:before,
+.langField:after{
+  content: '';
+  display: table;
+}
+.langField:after{
+  clear: both;
 }

@@ -1,4 +1,4 @@
-const eventsUrl = "http://localhost:3000/events/";
+const eventsUrl = "http://192.168.31.7:3000/";
 
 // Получаем список языков
 const getLang = request => {
@@ -123,33 +123,37 @@ $(function() {
       template: $("#customEditorTemplate").html(),
     },
     edit: e => {
-      function onSelectLang(e) {
-        console.log('select');
-        var dataItem = e.dataItem;
-        console.log("event :: select (" + dataItem.text + " : " + dataItem.value + ")" );
-      };
 
+      function onChangeLang(e) {
+        var langArr = this.value();
+        var langArrMsg = $('#langArray').closest('.k-edit-field').find('.k-error');
 
-      function onDeselectLang(e) {
-        console.log('deselect');
-        var dataItem = e.dataItem;
-        var langArray = $('#langArray');
-        console.log("event :: deselect (" + dataItem.text + " : " + dataItem.value + ") --" + e.target);
+        $('.langField').slideUp( 0 );
 
-        // если исключен русский язык
-        if ( (dataItem.value === "ru") ){
-          alert("Вы исключили русский язык!");
+        if ( langArr.length == 0 ){
+          langArrMsg.html("<b>Поле обязательно для заполнения!</b>");
+        } else {
+          if  ( langArr.indexOf( 'ru' ) != -1 ){
+            langArrMsg.html("");
+          } else {
+            langArrMsg.html("<b>ВНИМАНИЕ!</b><br>Вы исключили русский язык!");
+          }
+
+          langArr.forEach( function (lang) {
+            $('.langField_' + lang).slideDown( 0 );
+          } )
         }
-      };
+      }
 
       $("#langArray").kendoMultiSelect({
         dataBind: "langArray",
         dataSource: {transport: {read: getLang}},
+        value: tour.langArray,
         dataTextField: "text",
         dataValueField: "value",
-        validationMessage: "Должен быть выбран хотя бы один язык!",
-        deselect: onDeselectLang,
-        select: onSelectLang
+        placeholder: "Должен быть выбран хотя бы один язык!",
+        change: onChangeLang,
+
       });
 
       $('#grid-ticket').kendoGrid({
@@ -258,26 +262,22 @@ $(function() {
       batch: true,
       transport: {
         read: {
-          url: eventsUrl,
+          url: eventsUrl + 'events',
           type: "GET",
           dataType: "json"
         },
         update: {
-          url: eventsUrl,
-          type: "PUT",
-          dataType: "json",
-          // contentType: MIME_JSON,
-          processData: false
+          url: eventsUrl + 'events',
+          type: "PATCH",
+          dataType: "json"
         },
         create: {
-          url: eventsUrl,
+          url: eventsUrl + 'events',
           type: "POST",
-          dataType: "json",
-          // contentType: MIME_JSON,
-          processData: false
+          dataType: "json"
         },
         destroy: {
-          url: eventsUrl,
+          url: eventsUrl + 'events',
           type: 'DELETE',
           dataType: "json"
         },
@@ -289,36 +289,36 @@ $(function() {
       },
       schema: {
         type: "json",
-        data: "object",
+        data: "model",
         total: "total",
         model: {
-          id: "taskId",
+          id: "id",
           fields: {
             // Языки экскурсии
-            langArray: { from: "langArray", defaultValue: tour.langArray, validation: { required: true } },
+            langArray: { from: "langArray", defaultValue: tour.langArray, validation: { required: true }, editable: true, nullable: true },
 
             // ID рейса
-            taskId: { from: "id", type: "number" },
+            taskId: { from: "id", type: "string" },
             // ID экскурсии
             tourId: { from: "parent", type: "number", defaultValue: 0 },
             // Название экскурсии
-            title: { from: "pagetitle", defaultValue: tour.name, validation: { required: true } },
+            title: { from: "title", defaultValue: tour.name, validation: { required: true } },
             // Начало рейса
-            start: { from: "tv_tripDateTimeStart", type: "date" },
+            start: { from: "start", type: "date" },
             // Окончание рейса
-            end: { type: "date", from: "tv_tripDateTimeEnd" },
+            end: { from: "end", type: "date" },
             // Рейс длится весь день
-            isAllDay: { type: "boolean", defaultValue: false, from: "tv_isAllDay" },
+            isAllDay: { from: "isAllDay", type: "boolean", defaultValue: false },
             // Повторение
-            recurrenceId: { from: "tv_recurrenceID" },
+            recurrenceId: { from: "recurrenceID" },
             // Правило повторения
-            recurrenceRule: { from: "tv_recurrenceRule" },
+            recurrenceRule: { from: "recurrenceRule" },
             // Исключение
-            recurrenceException: { from: "tv_recurrenceException" },
+            recurrenceException: { from: "recurrenceException" },
             // В каком часовом поясе начинается рейс
-            startTimezone: { from: "tv_startTimezone" },
+            startTimezone: { from: "startTimezone" },
             // В каком часовом поясе оканчивается рейс
-            endTimezone: { from: "tv_endTimezone" },
+            endTimezone: { from: "endTimezone" },
             // Описание экскурсии
             description: { from: "description", defaultValue: tour.description },
             // Причал отправления
@@ -350,12 +350,7 @@ $(function() {
             // Количество билетов на продажу
             count: { from: "tv_ticketCount", defaultValue: tour.count },
           }
-        },
-        aggregate: [
-          // { field: "unitPrice", aggregate: "max" },
-          // { field: "unitPrice", aggregate: "min" },
-          // { field: "ProductName", aggregate: "count" }
-        ],
+        }
 
       },
     }

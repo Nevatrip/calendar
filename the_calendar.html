@@ -42,29 +42,30 @@
       <div class="k-edit-label"><label for="langArray">Язык экскурсии</label></div>
       <div data-container-for="langArray" class="k-edit-field">
         <select id="langArray" multiple="multiple" required="required"></select>
+        <span class="k-error"></span>
       </div>
     </div>
 
-    <!--<div class="outer">-->
-      <!--<div class="k-edit-label"><label for="langArray">Язык экскурсии</label></div>-->
-      <!--<div data-container-for="langArray" class="k-edit-field">-->
-        <!--<select-->
-          <!--id="langArray"-->
-          <!--data-bind="value:langArray"-->
-          <!--data-source="{transport: {read: getLang}}"-->
-          <!--data-role="multiselect"-->
-          <!--multiple="multiple"-->
-          <!--data-value-field="value"-->
-          <!--data-text-field="text"-->
-          <!--required="required"-->
-          <!--validationMessage="Должен быть выбран хотя бы один язык!"></select>-->
-      <!--</div>-->
-    <!--</div>-->
-
     <div class="outer">
-      <div class="k-edit-label"><label for="title">Название экскурсии</label></div>
-      <div data-container-for="title" class="k-edit-field">
-        <textarea name="title" class="k-textbox" data-bind="value:title" required="required"></textarea>
+      <div class="langField langField_ru" style="display: block;">
+        <div class="k-edit-label"><label for="title">Название экскурсии</label></div>
+        <div data-container-for="title" class="k-edit-field">
+          <textarea name="title" class="k-textbox" data-bind="value:title" required="required"></textarea>
+        </div>
+      </div>
+
+      <div class="langField langField_en" style="display: none;">
+        <div class="k-edit-label"><label for="title_en">Название экскурсии(en)</label></div>
+        <div data-container-for="title" class="k-edit-field">
+          <textarea name="title_en" class="k-textbox" data-bind="value:title_en" required="required"></textarea>
+        </div>
+      </div>
+
+      <div class="langField langField_zh" style="display: none;">
+        <div class="k-edit-label"><label for="title_zh">Название экскурсии(zh)</label></div>
+        <div data-container-for="title" class="k-edit-field">
+          <textarea name="title_zh" class="k-textbox" data-bind="value:title_zh" required="required"></textarea>
+        </div>
       </div>
     </div>
 
@@ -152,9 +153,23 @@
     </div>
 
     <div class="outer">
-      <div class="k-edit-label"><label for="tripDirection">Направление</label></div>
-      <div data-container-for="tripDirection" class="k-edit-field">
-        <input type="text" class="k-input k-textbox" name="tripDirection" data-bind="value:tripDirection">
+      <div class="langField langField_ru" style="display: block;">
+        <div class="k-edit-label"><label for="tripDirection">Направление</label></div>
+        <div data-container-for="tripDirection" class="k-edit-field">
+          <input type="text" class="k-input k-textbox" name="tripDirection" data-bind="value:tripDirection">
+        </div>
+      </div>
+      <div class="langField langField_en" style="display: none;">
+        <div class="k-edit-label"><label for="tripDirection_en">Направление(en)</label></div>
+        <div data-container-for="tripDirection_en" class="k-edit-field">
+          <input type="text" class="k-input k-textbox" name="tripDirection" data-bind="value:tripDirection_en">
+        </div>
+      </div>
+      <div class="langField langField_zh" style="display: none;">
+        <div class="k-edit-label"><label for="tripDirection_zh">Направление(zh)</label></div>
+        <div data-container-for="tripDirection_zh" class="k-edit-field">
+          <input type="text" class="k-input k-textbox" name="tripDirection" data-bind="value:tripDirection_zh">
+        </div>
       </div>
     </div>
 
@@ -180,16 +195,44 @@
     </div>
 
     <div class="outer">
-      <div class="k-edit-label"><label for="tipBuy">Совет при покупке</label></div>
-      <div data-container-for="tipBuy" class="k-edit-field">
-        <textarea name="tipBuy" class="k-textbox" data-bind="value:tipBuy" required="required"></textarea>
+      <div class="langField langField_ru" style="display: block;">
+        <div class="k-edit-label"><label for="tipBuy">Совет при покупке</label></div>
+        <div data-container-for="tipBuy" class="k-edit-field">
+          <textarea name="tipBuy" class="k-textbox" data-bind="value:tipBuy" required="required"></textarea>
+        </div>
+      </div>
+      <div class="langField langField_en" style="display: none;">
+        <div class="k-edit-label"><label for="tipBuy">Совет при покупке(en)</label></div>
+        <div data-container-for="tipBuy_en" class="k-edit-field">
+          <textarea name="tipBuy_en" class="k-textbox" data-bind="value:tipBuy_en" required="required"></textarea>
+        </div>
+      </div>
+      <div class="langField langField_zh" style="display: none;">
+        <div class="k-edit-label"><label for="tipBuy">Совет при покупке(zh)</label></div>
+        <div data-container-for="tipBuy_zh" class="k-edit-field">
+          <textarea name="tipBuy_zh" class="k-textbox" data-bind="value:tipBuy_zh" required="required"></textarea>
+        </div>
       </div>
     </div>
 
     <div class="outer">
-      <div class="k-edit-label"><label for="tipTicket">Совет в билете</label></div>
-      <div data-container-for="tipTicket" class="k-edit-field">
-        <textarea name="tipTicket" class="k-textbox" data-bind="value:tipTicket" required="required"></textarea>
+      <div class="langField langField_ru" style="display: block;">
+        <div class="k-edit-label"><label for="tipTicket">Совет в билете</label></div>
+        <div data-container-for="tipTicket" class="k-edit-field">
+          <textarea name="tipTicket" class="k-textbox" data-bind="value:tipTicket" required="required"></textarea>
+        </div>
+      </div>
+      <div class="langField langField_en" style="display: none;">
+        <div class="k-edit-label"><label for="tipTicket_en">Совет в билете(en)</label></div>
+        <div data-container-for="tipTicket" class="k-edit-field">
+          <textarea name="tipTicket_en" class="k-textbox" data-bind="value:tipTicket_en" required="required"></textarea>
+        </div>
+      </div>
+      <div class="langField langField_zh" style="display: none;">
+        <div class="k-edit-label"><label for="tipTicket">Совет в билете(zh)</label></div>
+        <div data-container-for="tipTicket_zh" class="k-edit-field">
+          <textarea name="tipTicket_zh" class="k-textbox" data-bind="value:tipTicket_zh" required="required"></textarea>
+        </div>
       </div>
     </div>
 
@@ -208,9 +251,23 @@
     </div>
 
     <div class="outer">
-      <div class="k-edit-label"><label for="description">Описание</label></div>
-      <div data-container-for="description" class="k-edit-field">
-        <textarea name="description" class="k-textbox" data-bind="value:description" rows="6"></textarea>
+      <div class="langField langField_ru" style="display: block;">
+        <div class="k-edit-label"><label for="description">Описание</label></div>
+        <div data-container-for="description" class="k-edit-field">
+          <textarea name="description" class="k-textbox" data-bind="value:description" rows="6"></textarea>
+        </div>
+      </div>
+      <div class="langField langField_en" style="display: none;">
+        <div class="k-edit-label"><label for="description_en">Описание(en)</label></div>
+        <div data-container-for="description_en" class="k-edit-field">
+          <textarea name="description_en" class="k-textbox" data-bind="value:description_en" rows="6"></textarea>
+        </div>
+      </div>
+      <div class="langField langField_zh" style="display: none;">
+        <div class="k-edit-label"><label for="description_zh">Описание(zh)</label></div>
+        <div data-container-for="description_zh" class="k-edit-field">
+          <textarea name="description_zh" class="k-textbox" data-bind="value:description_zh" rows="6"></textarea>
+        </div>
       </div>
     </div>
 
