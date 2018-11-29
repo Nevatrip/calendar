@@ -264,29 +264,45 @@ $(function() {
       batch: true,
       transport: {
         read: {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
           url: eventsUrl + 'events',
           type: "GET",
           dataType: "json",
         },
         update: {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
           url: eventsUrl + 'events',
           type: "PATCH",
           dataType: "json",
         },
         create: {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
           url: eventsUrl + 'events',
           type: "POST",
-          dataType: "json",
+          dataType: "json"
         },
         destroy: {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
           url: eventsUrl + 'events',
           type: 'DELETE',
           dataType: "json",
         },
         parameterMap: function(options, operation) {
-          if (operation !== "read" && options.models) {
+          // if (operation !== "read" && options.models) {
             return {models: kendo.stringify(options.models)};
-          }
+          // }
         }
       },
       schema: {

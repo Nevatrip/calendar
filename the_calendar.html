@@ -47,24 +47,35 @@
     </div>
 
     <div class="outer">
+      <div class="k-edit-label"><label for="title">Экскурсия</label></div>
+      <div data-container-for="title" class="k-edit-field">
+        <textarea name="title" class="k-textbox" data-bind="value:title" required="required"></textarea>
+
+
+          <!--<div class="k-edit-label"><label for="vehicleId">Транспортное средство</label></div>-->
+          <!--<div data-container-for="vehicleId" class="k-edit-field">-->
+            <!--<select id="vehicleId" data-bind="value:vehicleId" data-source="{transport: {read: getVehicle}}" data-role="dropdownlist" data-value-field="value" data-text-field="text"></select>-->
+          <!--</div>-->
+      </div>
+    </div>
+
+    <div class="outer">
       <fieldset class="langField langField_ru" style="display: block;">
-        <div class="k-edit-label"><label for="title">Название экскурсии</label></div>
-        <div data-container-for="title" class="k-edit-field">
-          <textarea name="title" class="k-textbox" data-bind="value:title" required="required"></textarea>
+        <div class="k-edit-label"><label for="tripDirection">Направление</label></div>
+        <div data-container-for="tripDirection" class="k-edit-field">
+          <input type="text" class="k-input k-textbox" name="tripDirection" data-bind="value:tripDirection">
         </div>
       </fieldset>
-
       <fieldset class="langField langField_en" style="display: none;" disabled>
-        <div class="k-edit-label"><label for="title_en">Название экскурсии(en)</label></div>
-        <div data-container-for="title" class="k-edit-field">
-          <textarea name="title_en" class="k-textbox" data-bind="value:title_en"></textarea>
+        <div class="k-edit-label"><label for="tripDirection_en">Направление(en)</label></div>
+        <div data-container-for="tripDirection_en" class="k-edit-field">
+          <input type="text" class="k-input k-textbox" name="tripDirection" data-bind="value:tripDirection_en">
         </div>
       </fieldset>
-
       <fieldset class="langField langField_zh" style="display: none;" disabled>
-        <div class="k-edit-label"><label for="title_zh">Название экскурсии(zh)</label></div>
-        <div data-container-for="title" class="k-edit-field">
-          <textarea name="title_zh" class="k-textbox" data-bind="value:title_zh"></textarea>
+        <div class="k-edit-label"><label for="tripDirection_zh">Направление(zh)</label></div>
+        <div data-container-for="tripDirection_zh" class="k-edit-field">
+          <input type="text" class="k-input k-textbox" name="tripDirection" data-bind="value:tripDirection_zh">
         </div>
       </fieldset>
     </div>
@@ -150,27 +161,6 @@
       <div data-container-for="mapUrl" class="k-edit-field">
         <input type="text" class="k-input k-textbox" name="mapUrl" data-bind="value:mapUrl">
       </div>
-    </div>
-
-    <div class="outer">
-      <fieldset class="langField langField_ru" style="display: block;">
-        <div class="k-edit-label"><label for="tripDirection">Направление</label></div>
-        <div data-container-for="tripDirection" class="k-edit-field">
-          <input type="text" class="k-input k-textbox" name="tripDirection" data-bind="value:tripDirection">
-        </div>
-      </fieldset>
-      <fieldset class="langField langField_en" style="display: none;" disabled>
-        <div class="k-edit-label"><label for="tripDirection_en">Направление(en)</label></div>
-        <div data-container-for="tripDirection_en" class="k-edit-field">
-          <input type="text" class="k-input k-textbox" name="tripDirection" data-bind="value:tripDirection_en">
-        </div>
-      </fieldset>
-      <fieldset class="langField langField_zh" style="display: none;" disabled>
-        <div class="k-edit-label"><label for="tripDirection_zh">Направление(zh)</label></div>
-        <div data-container-for="tripDirection_zh" class="k-edit-field">
-          <input type="text" class="k-input k-textbox" name="tripDirection" data-bind="value:tripDirection_zh">
-        </div>
-      </fieldset>
     </div>
 
     <div class="outer">
@@ -299,20 +289,6 @@
 
   <!--<div class="container-modal">-->
     <!--<div class="container-fields">-->
-      <!--<div class="outer">-->
-        <!--<div class="k-edit-label"><label for="globalLangArray">Язык экскурсии</label></div>-->
-
-        <!--<div data-container-for="globalLangArray" class="k-edit-field">-->
-          <!--<select id="globalLangArray"-->
-                  <!--data-bind="value:globalLangArray"-->
-                  <!--data-source="{transport: {read: getLang}}"-->
-                  <!--data-role="multiselect"-->
-                  <!--multiple="multiple"-->
-                  <!--data-value-field="value"-->
-                  <!--data-text-field="text">-->
-          <!--</select>-->
-        <!--</div>-->
-      <!--</div>-->
 
       <!--<div class="outer">-->
         <!--<div class="k-edit-label"><label for="title">Направление</label></div>-->
