@@ -1,4 +1,4 @@
-const eventsUrl = "http://192.168.31.7:3000/";
+const eventsUrl = "http://localhost:3000/";
 
 // Получаем список языков
 const getLang = request => {
@@ -128,7 +128,8 @@ $(function() {
         var langArr = this.value();
         var langArrMsg = $('#langArray').closest('.k-edit-field').find('.k-error');
 
-        $('.langField').slideUp( 0 );
+        $('.langField').slideUp( 0 ).prop("disabled", true);
+        $('.langField').find('.k-textbox').prop("disabled", true).prop("required", false);
 
         if ( langArr.length == 0 ){
           langArrMsg.html("<b>Поле обязательно для заполнения!</b>");
@@ -140,7 +141,8 @@ $(function() {
           }
 
           langArr.forEach( function (lang) {
-            $('.langField_' + lang).slideDown( 0 );
+            $('.langField_' + lang).slideDown( 0 ).prop("disabled", false);
+            $('.langField_' + lang).find('.k-textbox').prop("disabled", false).prop("required", true);
           } )
         }
       }
@@ -264,22 +266,22 @@ $(function() {
         read: {
           url: eventsUrl + 'events',
           type: "GET",
-          dataType: "json"
+          dataType: "json",
         },
         update: {
           url: eventsUrl + 'events',
           type: "PATCH",
-          dataType: "json"
+          dataType: "json",
         },
         create: {
           url: eventsUrl + 'events',
           type: "POST",
-          dataType: "json"
+          dataType: "json",
         },
         destroy: {
           url: eventsUrl + 'events',
           type: 'DELETE',
-          dataType: "json"
+          dataType: "json",
         },
         parameterMap: function(options, operation) {
           if (operation !== "read" && options.models) {
