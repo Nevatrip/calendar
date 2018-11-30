@@ -1,81 +1,106 @@
-html, body{
+html, body {
   position: relative;
   font-family: Arial, sans-serif;
 }
-.container-modal{
+
+.container-modal {
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%
 }
-.container-fields{
+
+.container-fields {
   position: relative;
   flex: 1;
   column-count: 2;
+  margin: 0 5px;
 }
-.container-fields:before,
-.container-fields:after{
+
+.container-fields:before {
+  content: '';
+  top: 0;
+  left: 50%;
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  background-color: #9a9a9a;
+}
+
+.container-fields:after {
   content: '';
   display: table;
-}
-.container-fields:after{
   clear: both;
 }
-.outer{
+
+.outer {
   position: relative;
   columns: 1;
   page-break-inside: avoid;
   break-inside: avoid;
 }
+
 .outer:before,
-.outer:after{
+.outer:after {
   content: '';
   display: table;
 }
-.outer:after{
+
+.outer:after {
   clear: both;
 }
-.k-scheduler-edit-form .k-edit-form-container, .k-scheduler-timezones .k-edit-form-container{
+
+.k-scheduler-edit-form .k-edit-form-container, .k-scheduler-timezones .k-edit-form-container {
   width: 900px;
 }
+
 .k-scheduler-edit-form .k-edit-field {
   width: 50%;
 }
+
 .k-scheduler-edit-form .k-edit-label {
   width: 44%;
 }
+
 .k-textbox,
-.k-widget.k-header{
+.k-widget.k-header {
   width: 100%;
   min-width: 100%;
   max-width: 100%;
 }
-.k-window-title{
+
+.k-window-title {
   text-align: center;
 }
-.k-caption{
+
+.k-caption {
   font-size: 1.2em;
   padding: 5px 0px 10px;
 }
+
 .container-tables {
   padding: 0 16px;
 }
-.table{
+
+.table {
   width: 100%;
   table-layout: auto;
   border-collapse: collapse;
   margin: 1px auto 16px;
 }
+
 .table td,
-.table th{
+.table th {
   border: 1px solid #eee;
   padding: .5rem;
   text-align: center;
 }
-.k-invalid{
-  border-color: red!important;
+
+.k-invalid {
+  border-color: red !important;
 }
-.k-error{
+
+.k-error {
   display: inline-block;
   color: red;
   font-style: italic;
@@ -85,40 +110,109 @@ html, body{
   max-width: 100%;
   margin-top: 2px;
 }
+
 .trip-template {
   font-size: 11px;
 }
-.trip-template__time{
+
+.trip-template__time {
   display: block;
   font-weight: bold;
 }
-.trip-template__title{
+
+.trip-template__title {
   display: block;
   max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.k-invalid-msg{
+
+.k-invalid-msg {
   display: block !important;
 }
-.langField_en{
+
+.langField_en {
   background-color: #dbe3f5;
 }
-.langField_zh{
+
+.langField_zh {
   background-color: #fffc97;
 }
-.langField{
+
+.langField {
   position: relative;
   padding: 7px 0 0;
   margin: 0;
-  border:none!important;
+  border: none !important;
 }
+
 .langField:before,
-.langField:after{
+.langField:after {
   content: '';
   display: table;
 }
-.langField:after{
+
+.langField:after {
   clear: both;
+}
+
+input[type="checkbox"] {
+  top: 4px;
+  display: inline-block;
+  position: relative;
+}
+
+.k-check {
+  display: inline-block;
+  padding-top: 6px;
+  padding-right: 3px;
+  font-size: 11px;
+  text-transform: lowercase;
+}
+
+input.k-recur-weekday-checkbox {
+  margin: 0;
+}
+
+.k-edit-field > ul.k-reset > li {
+  margin: 0.4em 0 0;
+  line-height: inherit;
+}
+
+.k-edit-field > ul.k-reset {
+  margin-bottom: 5px;
+}
+
+.k-edit-field > ul.k-reset .k-datepicker, .k-edit-field > ul.k-reset .k-dropdown, div[name=recurrenceRule] > .k-dropdown {
+  width: 100%;
+  display: block;
+  position: relative;
+  margin-left: 0;
+}
+.container-additionally{
+  clear: both;
+  position: relative;
+  margin: 10px 5px;
+}
+.k-widget.k-dropdown.k-header.k-recur-weekday-offset,
+.k-widget.k-dropdown.k-header.k-recur-weekday,
+.k-widget.k-datepicker.k-header.k-recur-until,
+.k-widget.k-dropdown.k-header.k-recur-month{
+  width: 44%;
+  max-width: 44%;
+  min-width: 44%;
+  font-size: 12px;
+  margin-right: 2px;
+  margin-bottom: 4px;
+  display: inline-block;
+}
+.k-widget.k-datepicker.k-header.k-recur-until {
+  margin-left: 10px;
+}
+.k-widget.k-numerictextbox.k-recur-interval {
+  margin-right: 10px;
+}
+.k-widget.k-numerictextbox.k-recur-count {
+  margin-right: 5px;
 }
